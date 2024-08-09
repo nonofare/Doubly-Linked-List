@@ -1,4 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
+
+// dokonczyc funkcje sortowania
+// sprawic by hook nie byl widoczny
+// przetestowac
 
 struct Node
 {
@@ -18,7 +23,6 @@ void memFree(struct Node *hook);
 int main()
 {
   struct Node *hook = (struct Node *)malloc(sizeof(struct Node));
-  hook->value = 0;
 
   int exit = 0;
   while (exit != 1)
@@ -31,25 +35,22 @@ int main()
 
 int menu(struct Node *hook)
 {
-  int choice;
+  int choice = -1;
+  int value = -1;
 
-  printf("1. Add node\n2. Delete node\n3. Show nodes\n4. Sort\n5. Exit");
+  printf("\n1. Add node\n2. Delete node\n3. Show nodes\n4. Sort\n5. Exit\n");
   scanf("%d", &choice);
 
   switch (choice)
   {
   case 1:
-    int value;
-
-    printf("Enter new node value: ");
+    printf("\nEnter a new node value: ");
     scanf("%d", &value);
 
     addNode(hook, value);
     break;
   case 2:
-    int value;
-
-    printf("Enter value of a node You want to delete: ");
+    printf("\nEnter value of a node You want to delete: ");
     scanf("%d", &value);
 
     deleteNode(hook, value);
@@ -83,7 +84,7 @@ void addNode(struct Node *hook, int value)
   newNode->value = value;
 }
 
-void deleteNode(struct Node *hook, int value) // dopatrzec scenariusz usuniuecia hooka
+void deleteNode(struct Node *hook, int value)
 {
   struct Node *tempNode = hook;
 
@@ -91,7 +92,7 @@ void deleteNode(struct Node *hook, int value) // dopatrzec scenariusz usuniuecia
   {
     if (tempNode->next == NULL)
     {
-      printf("Node not found.");
+      printf("\nNode not found.");
       break;
     }
     tempNode = tempNode->next;
@@ -111,9 +112,9 @@ void showNodes(struct Node *hook)
   struct Node *tempNode = hook;
 
   int counter = 0;
-  while (tempNode->next != NULL) // ta petla jest do dopatrzenia
+  while (tempNode != NULL)
   {
-    printf("%d: node value - %d\n", counter, tempNode->value);
+    printf("\n%d: node value - %d", counter, tempNode->value);
 
     tempNode = tempNode->next;
     counter++;
@@ -122,6 +123,20 @@ void showNodes(struct Node *hook)
 
 void sortNodes(struct Node *hook)
 {
+  int counter = 0;
+  struct Node *tempNode = hook;
+
+  while (tempNode != NULL)
+  {
+    counter++;
+  }
+
+  for (int i = 0; i < counter; i++)
+  {
+    for (int j = 0; j < counter - i; j++)
+    {
+    }
+  }
 }
 
 void memFree(struct Node *hook)
@@ -129,7 +144,7 @@ void memFree(struct Node *hook)
   struct Node *tempNode = hook;
   struct Node *nextNode = tempNode->next;
 
-  while (tempNode->next != NULL) // ta petla jest do doptarzenia
+  while (tempNode != NULL)
   {
     free(tempNode);
     tempNode = nextNode;
